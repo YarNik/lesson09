@@ -105,7 +105,64 @@
 					element.innerHTML = generate_price();
 				});
 				
+				
+				
 			</script>
+<script>
+			
+	var prices = document.querySelectorAll("li span");
+	prices = [...prices].map(item => parseInt(item.innerHTML));
+	
+	var low = Math.min(...prices);
+	var high = Math.max(...prices);
+	
+	min_price_range.min = low;
+	max_price_range.min = low;
+	min_price_range.max = high;
+	max_price_range.max = high;
+	
+	min_price_range.value = low;
+	max_price_range.value = high;
+	
+	min_price_label.innerHTML = low;
+	max_price_label.innerHTML = high;
+	
+	function filter(item){
+			var min = min_price_range.value;
+			var max = max_price_range.value;
+						
+			min_price_label.innerHTML = min;
+			max_price_label.innerHTML = max;
+			
+			if (this.id == "min_price_range" && min_price_range.value > max_price_range.value){
+				max_price_range.value = min_price_range.value;
+				max_price_label.innerHTML = min_price_label.innerHTML;
+			}
+			if (this.id == "max_price_range" && max_price_range.value < min_price_range.value){
+				min_price_range.value = max_price_range.value;
+				min_price_label.innerHTML = max_price_label.innerHTML;
+			}
+			
+			var spans = document.querySelectorAll("li span");
+			spans.forEach(span => {
+				var price = parseInt(span.innerHTML);
+				if (price >= min && price <= max){
+					span.parentNode.style.display = "flex";
+				}else {
+					span.parentNode.style.display = "none";
+				}
+			})
+	}
+	min_price_range.oninput = filter;
+	max_price_range.oninput = filter;
+	
+	
+	
+	console.log(low, high);
+			
+			
+</script>
+			
 			
 		</div>	
 	</div>
