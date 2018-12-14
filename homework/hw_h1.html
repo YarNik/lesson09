@@ -10,5 +10,18 @@
 	+380503335588;
 	...
 	*/
-
+	
+	var regExp = /\+\d+[^A-Z]+|\d+[^A-Z]+/ig;
+	var result = data.match(regExp);
+	result.forEach(function(item){
+		item = item.replace(/\D/g,'');
+		if (item[0] == 0){
+			item = item.split('');
+			item.unshift("3","8");
+			item = item.join('');
+		}
+		item = "+" + item;
+		console.log(item);
+	})
+	
 </script>
